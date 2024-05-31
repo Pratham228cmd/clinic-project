@@ -1,15 +1,11 @@
-// const express = require("express");
-// const bodyParser = require("body-parser");
-// const cors=require("cors");
-import express from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
-import homeRoute from "./routes/home.js";
-import aboutRoute from "./routes/about.js";
-import appointmentRoute from "./routes/appointment.js";
-import contactRoute from "./routes/contact.js";
-import labRoute from "./routes/lab.js";
+const express = require('express');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+
+dotenv.config({path: './.env'});
+
 const app = express();
+
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
