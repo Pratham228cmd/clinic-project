@@ -6,11 +6,19 @@ dotenv.config({path: './.env'});
 
 const app = express();
 
+const DB = process.env.DB.replace('<PASSWORD>', process.env.DB_PASSWORD);
+
+mongoose.connect(DB, {
+	useNewUrlParser: true,
+	useCreateIndex: true,
+	useFindAndModify: false
+}).then(() => {
+	console.log('DB connection established');
+})
+
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
-
-const PORT = 3000;
 
 app.use('/home',homeRoute);
 app.use('/about',aboutRoute);
@@ -22,7 +30,7 @@ app.get("/", (req, res) => {
 	res.send("Hello to clinic");
 });
 
-
+const PORT = 3000;
 app.listen(PORT, () => {
 	console.log(`App Listening on port ${PORT}.`)
 });
